@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Chuck Norris Jokes Generator</h1>
+        <button onclick="fetchJoke()">Get Joke</button>
+        <div id="joke" class="joke"></div>
+    </div>
+
+    <script>
+        function fetchJoke(){
+            fetch('https://api.chucknorris.io/jokes/random')
+            .then(response => response.json())
+            .then(data => {
+                displayJoke(data.value)
+            })
+        }
+
+        function displayJoke(joke){
+            const jokeElement = document.getElementById('joke')
+            jokeElement.innerHTML = `<p>${joke}</p>`
+        }
+    </script>
+</body>
+</html>

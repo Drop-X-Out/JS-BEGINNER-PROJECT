@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Viewer</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Github Profile Viewer</h1>
+        <input type="text" id="username" placeholder="Enter your Username"/>
+        <button onclick="fetchProfile()">Get Profile</button>
+        <div id="profile"></div>
+    </div>
+
+    <script>
+        function fetchProfile(){
+            const username = document.getElementById('username').value
+            if(!username){
+                alert('Enter a Github username')
+                return
+            }
+
+            fetch(`https://api.github.com/users/${username}`)
+            .then(response => {
+                if(!response.ok){
+                    throw new Error('Network response is not ok')
+                }
+                return response.json();
+            })
+            .then(data => {
+                displayProfile(data)
+            })
+            .catch(err => {
+                console.error('There was a problem with the fetch operation:',err)
+            })
+        }
+
+        function displayProfile(profileData){
+            const profileElement = document.getElementById('profile')
+            profileElement.innerHTML = `
+            <h2>${profileData.login}</h2>
+            <img src ="${profileData.avatar_url}" style="width:100px; height:100px; border-radius:50%"
+              />  `
+        }
+    </script>
+</body>
+</html>
