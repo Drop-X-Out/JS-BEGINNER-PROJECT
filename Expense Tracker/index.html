@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+
+        }
+        .container{
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        input[type="text"],select,input[type=number],input[type=submit]{
+            margin-bottom: 10px;
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"]{
+            background-color: #4caf5d;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover{
+            background-color: #45a049;
+        }
+
+        table{
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,td{
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th{
+            background-color: #4caf50;
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Expense Tracker</h2>
+        <form id="expenseForm">
+            <input type="text" id="description" placeholder="Expense Description" required/><br>
+            <select id="category" required>
+                <option value="">Select Category</option>
+                <option value="Food">Food</option>
+                <option value="Transportation">Transportation</option>
+                <option value="Utilities">Utilities</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Others">Others</option>
+            </select><br>
+            <input type="number" id="amount" placeholder="Amount" required><br>
+            <input type="submit" value="Add Expense">
+        </form>
+        <h3>Expense Summary</h3>
+        <table id="expenseTable">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Category</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody id="expenseList">
+
+            </tbody>
+        </table>
+    </div>
+
+
+    <script>
+        const expenseForm = document.getElementById('expenseForm')
+        const expenseList = document.getElementById('expenseList')
+
+        expenseForm.addEventListener('submit',function(event){
+            event.preventDefault();
+
+            const description = document.getElementById('description').value;
+            const category = document.getElementById('category').value;
+            const amount = document.getElementById('amount').value;
+
+            if(document && category && !isNaN(amount)){
+                const newRow = document.createElement('tr')
+
+                newRow.innerHTML = `<td>${description}</td>
+                <td>${category}</td>
+                <td>${amount}</td>`;
+                
+                expenseList.appendChild(newRow)
+
+                document.getElementById('description').value=''
+            document.getElementById('category').value=''
+            document.getElementById('amount').value=''
+            }else{
+                alert('Please fill out all fields with valid Data')
+            }
+
+            
+
+        })
+    </script>
+</body>
+</html>
