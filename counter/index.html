@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counter</title>
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .countdown-container{
+            text-align: center;
+        }
+
+        .countdown-timer{
+            font-size: 36px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .countdown-label{
+            font-size: 18px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="countdown-container">
+        <div class="countdown-timer" id="countdown"></div>
+        <div class="countdown-label">until 2025</div>
+    </div>
+
+    <script>
+        const targetDate = new Date('2025-01-01T00:00:00')
+
+        function updateCountdown(){
+            const currentDate = new Date();
+
+            const timeDifference = targetDate - currentDate
+
+            console.log(timeDifference)
+
+            const days = Math.floor(timeDifference/(1000 * 60 * 60 * 24));
+
+            const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+            
+
+            const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60))
+
+            const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000)
+
+            document.getElementById('countdown').innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`
+
+            setTimeout(updateCountdown,1000)
+        }
+
+        updateCountdown()
+    </script>
+</body>
+
+</html>
